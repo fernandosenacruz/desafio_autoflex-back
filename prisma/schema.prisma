@@ -12,7 +12,7 @@ datasource db {
 
 model Product {
   id         Int                  @id @default(autoincrement())
-  code       Int
+  code       String               @db.VarChar(255)
   name       String               @db.VarChar(255)
   price      Int
   feedstocks ProductsFeedstocks[]
@@ -20,7 +20,7 @@ model Product {
 
 model Feedstock {
   id       Int                  @id @default(autoincrement())
-  code     Int
+  code     String               @db.VarChar(255)
   name     String               @db.VarChar(255)
   quantity Int
   products ProductsFeedstocks[]
