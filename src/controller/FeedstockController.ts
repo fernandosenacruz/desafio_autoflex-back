@@ -59,11 +59,12 @@ export default class FeedstockController {
     res: Response,
     next: NextFunction
   ): Promise<Response | void> => {
-    const { id, code, name, quantity } = req.body;
+    const { id } = req.params;
+    const { code, name, quantity } = req.body;
 
     try {
       const feedstock = await this.feedstockService.updateFeedstock(
-        id,
+        +id,
         code,
         name,
         quantity
