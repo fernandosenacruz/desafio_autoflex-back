@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import IProduct from '../interface/IProduct';
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 export default class ProductModel {
   public createProduct = async (
     code: string,
     name: string,
-    price: number
+    price: number,
   ): Promise<IProduct> => {
     const newProduct = await prisma.product.create({
       data: {
@@ -40,7 +40,7 @@ export default class ProductModel {
     id: number,
     code: string,
     name: string,
-    price: number
+    price: number,
   ): Promise<IProduct | null> => {
     const product = await prisma.product.update({
       where: {

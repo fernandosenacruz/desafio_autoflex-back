@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './ProductModel';
 import IFeedstock from '../interface/IFeedstock';
-
-const prisma = new PrismaClient();
 
 export default class FeedstockModel {
   public createFeedstock = async (
