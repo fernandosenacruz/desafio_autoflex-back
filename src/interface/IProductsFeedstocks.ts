@@ -1,7 +1,7 @@
-export default interface IProductsFeedstocks {
-  productId: number;
-  feedstockId: number;
-}
+// export default interface IProductsFeedstocks {
+//   productId: number;
+//   feedstockId: number;
+// }
 
 // export interface IProductFeedstock {
 //   productd: number;

@@ -1,9 +1,9 @@
-import IProductsFeedstocks from "./IProductsFeedstocks";
+import IAssociate from "./IAssociate";
 
 export default interface IProduct {
   id: number;
   code: string;
   name: string;
   price: number;
-  feedstocks?: IProductsFeedstocks[];
+  feedstocks?: IAssociate[];
 }
