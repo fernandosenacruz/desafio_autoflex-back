@@ -7,7 +7,7 @@ export default class ProductService {
   public createProduct = async (
     code: string,
     name: string,
-    price: number
+    price: number,
   ): Promise<IProduct> => {
     const newProduct = await this.productModel.createProduct(code, name, price);
 
@@ -30,13 +30,13 @@ export default class ProductService {
     id: number,
     code: string,
     name: string,
-    price: number
+    price: number,
   ): Promise<IProduct | null> => {
     const product = await this.productModel.updateProduct(
       id,
       code,
       name,
-      price
+      price,
     );
 
     return product;

@@ -27,12 +27,10 @@ model Feedstock {
 }
 
 model ProductsFeedstocks {
-  product     Product   @relation(fields: [productId], references: [id])
-  productId   Int
-  feedstock   Feedstock @relation(fields: [feedstockId], references: [id])
-  feedstockId Int
-  assignedAt  DateTime  @default(now())
-  assignedBy  String
-
-  @@id([productId, feedstockId])
+  id          Int        @id @default(autoincrement())
+  productId   Int?
+  feedstockId Int?
+  product     Product?   @relation(fields: [productId], references: [id])
+  feedstock   Feedstock? @relation(fields: [feedstockId], references: [id])
+  stock       Int
 }

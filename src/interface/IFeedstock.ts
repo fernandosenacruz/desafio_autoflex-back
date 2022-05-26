@@ -5,5 +5,5 @@ export default interface IFeedstock {
   code: string;
   name: string;
   quantity: number;
-  product?: IProductsFeedstocks[];
+  products?: IProductsFeedstocks[];
 }
