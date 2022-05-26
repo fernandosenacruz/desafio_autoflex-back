@@ -17,8 +17,8 @@ export default class AssociateService {
     return newAssociate;
   };
 
-  public getAssociations = async (): Promise<unknown> => {
-    const associates = await this.associateModel.getAssociations();
+  public getAssociations = async (productId: number, feedstockId: number): Promise<unknown> => {
+    const associates = await this.associateModel.getAssociations(productId, feedstockId);
 
     return associates;
   };
