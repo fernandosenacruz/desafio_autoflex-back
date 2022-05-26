@@ -1,4 +1,6 @@
 import AssociateModel from '../model/AssociateModel';
+import { prisma } from '../model/ProductModel';
+import IAssociate, { IAssociations } from '../interface/IAssociate';
 
 export default class AssociateService {
   constructor(private associateModel = new AssociateModel()) {}
@@ -7,7 +9,28 @@ export default class AssociateService {
     productId: number,
     feedstockId: number,
     stock: number
-  ): Promise<unknown> => {
+  ): Promise<IAssociate> => {
+    const feedstock = await prisma.feedstock.findMany({
+      where: {
+        id: feedstockId,
+      },
+    });
+
+    feedstock.map(async (f) => {
+      if (f.quantity < stock) {
+        throw new Error('Quantidade insuficiente');
+      } else {
+        await prisma.feedstock.update({
+          where: {
+            id: feedstockId,
+          },
+          data: {
+            quantity: f.quantity - stock,
+          },
+        });
+      }
+    });
+
     const newAssociate = await this.associateModel.createAssociation(
       productId,
       feedstockId,
@@ -17,13 +40,19 @@ export default class AssociateService {
     return newAssociate;
   };
 
-  public getAssociations = async (productId: number, feedstockId: number): Promise<unknown> => {
-    const associates = await this.associateModel.getAssociations(productId, feedstockId);
+  public getAssociations = async (
+    productId: number,
+    feedstockId: number
+  ): Promise<IAssociations> => {
+    const associates = await this.associateModel.getAssociations(
+      productId,
+      feedstockId
+    );
 
     return associates;
   };
 
-  public getAssociation = async (id: number): Promise<unknown | null> => {
+  public getAssociation = async (id: number): Promise<IAssociate | null> => {
     const associate = await this.associateModel.getAssociation(id);
 
     return associate;
@@ -34,7 +63,28 @@ export default class AssociateService {
     productId: number,
     feedstockId: number,
     stock: number
-  ): Promise<unknown | null> => {
+  ): Promise<IAssociate | null> => {
+    const feedstock = await prisma.feedstock.findMany({
+      where: {
+        id: feedstockId,
+      },
+    });
+
+    feedstock.map(async (f) => {
+      if (f.quantity < stock) {
+        throw new Error('Quantidade insuficiente');
+      } else {
+        await prisma.feedstock.update({
+          where: {
+            id: feedstockId,
+          },
+          data: {
+            quantity: f.quantity - stock,
+          },
+        });
+      }
+    });
+
     const associate = await this.associateModel.updateAssociation(
       id,
       productId,
@@ -45,7 +95,7 @@ export default class AssociateService {
     return associate;
   };
 
-  public deleteAssociation = async (id: number): Promise<unknown | null> => {
+  public deleteAssociation = async (id: number): Promise<IAssociate | null> => {
     const associate = await this.associateModel.deleteAssociation(id);
 
     return associate;

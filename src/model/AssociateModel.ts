@@ -1,11 +1,12 @@
 import { prisma } from './ProductModel';
+import IAssociate, { IAssociations } from '../interface/IAssociate';
 
 export default class AssociateModel {
   public createAssociation = async (
     productId: number,
     feedstockId: number,
     stock: number
-  ): Promise<unknown> => {
+  ): Promise<IAssociate> => {
     const newAssociate = await prisma.productsFeedstocks.create({
       data: {
         product: {
@@ -21,14 +22,14 @@ export default class AssociateModel {
         stock,
       },
     });
-
+    console.log(newAssociate);
     return newAssociate;
   };
 
   public getAssociations = async (
     productId: number,
     feedstockId: number
-  ): Promise<unknown> => {
+  ): Promise<IAssociations> => {
     const product = await prisma.product.findFirst({
       where: {
         id: productId,
@@ -50,7 +51,7 @@ export default class AssociateModel {
     return { data: { product, feedstock } };
   };
 
-  public getAssociation = async (id: number): Promise<unknown | null> => {
+  public getAssociation = async (id: number): Promise<IAssociate | null> => {
     const associate = await prisma.productsFeedstocks.findFirst({
       where: {
         id,
@@ -65,7 +66,7 @@ export default class AssociateModel {
     productId: number,
     feedstockId: number,
     stock: number
-  ): Promise<unknown | null> => {
+  ): Promise<IAssociate | null> => {
     const associate = await prisma.productsFeedstocks.update({
       where: {
         id,
@@ -88,7 +89,7 @@ export default class AssociateModel {
     return associate;
   };
 
-  public deleteAssociation = async (id: number): Promise<unknown | null> => {
+  public deleteAssociation = async (id: number): Promise<IAssociate | null> => {
     const associate = await prisma.productsFeedstocks.delete({
       where: {
         id,

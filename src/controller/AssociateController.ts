@@ -32,8 +32,9 @@ export default class AssociateController {
     try {
       const { productId, feedstockId } = req.query;
 
-      console.log(productId, feedstockId);
-      const associates = await this.associateService.getAssociations(+productId, +feedstockId);
+      const associates = await this.associateService.getAssociations(
+        +productId, +feedstockId
+        );
 
       return res.status(200).json(associates);
     } catch (error) {
