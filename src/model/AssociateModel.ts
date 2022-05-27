@@ -22,14 +22,22 @@ export default class AssociateModel {
         stock,
       },
     });
-    console.log(newAssociate);
+
     return newAssociate;
   };
 
-  public getAssociations = async (
-    productId: number,
-    feedstockId: number
-  ): Promise<IAssociations> => {
+  public getAssociations = async (): Promise<IAssociations> => {
+    const associations = await prisma.productsFeedstocks.findMany({
+      include: {
+        product: true,
+        feedstock: true,
+      },
+    });
+
+    return associations;
+  };
+
+  public getProductAssociations = async (productId: number): Promise<IAssociations> => {
     const product = await prisma.product.findFirst({
       where: {
         id: productId,
@@ -39,16 +47,20 @@ export default class AssociateModel {
       },
     });
 
+    return product;
+  };
+
+  public getFeedstockAssociations = async (productId: number): Promise<IAssociations> => {
     const feedstock = await prisma.feedstock.findFirst({
       where: {
-        id: feedstockId,
+        id: productId,
       },
       include: {
-        products: true,
+        feedstocks: true,
       },
     });
 
-    return { data: { product, feedstock } };
+    return feedstock;
   };
 
   public getAssociation = async (id: number): Promise<IAssociate | null> => {

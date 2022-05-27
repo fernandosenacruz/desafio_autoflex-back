@@ -40,16 +40,22 @@ export default class AssociateService {
     return newAssociate;
   };
 
-  public getAssociations = async (
-    productId: number,
-    feedstockId: number
-  ): Promise<IAssociations> => {
-    const associates = await this.associateModel.getAssociations(
-      productId,
-      feedstockId
-    );
+  public getAssociations = async (): Promise<IAssociations> => {
+    const associations = await this.associateModel.getAssociations();
 
-    return associates;
+    return associations;
+  };
+
+  public getProductAssociations = async (productId: number): Promise<IAssociations> => {
+    const product = await this.associateModel.getProductAssociations(productId);
+
+    return product;
+  };
+
+  public getFeedstockAssociations = async (productId: number): Promise<IAssociations> => {
+    const feedstock = await this.associateModel.getFeedstockAssociations(productId);
+
+    return feedstock;
   };
 
   public getAssociation = async (id: number): Promise<IAssociate | null> => {
