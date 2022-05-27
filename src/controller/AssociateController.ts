@@ -25,18 +25,50 @@ export default class AssociateController {
   };
 
   public getAssociations = async (
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction
   ) => {
     try {
-      const { productId, feedstockId } = req.query;
+      const associations = await this.associateService.getAssociations();
 
-      const associates = await this.associateService.getAssociations(
-        +productId, +feedstockId
-        );
+      return res.status(200).json(associations);
+    } catch (error) {
+      return next(error);
+    }
+  };
 
-      return res.status(200).json(associates);
+  public getProductAssociations = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { productId } = req.params;
+
+    try {
+      const product = await this.associateService.getProductAssociations(
+        +productId
+      );
+
+      return res.status(200).json(product);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  public getFeedstockAssociations = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { feedstockId } = req.params;
+
+    try {
+      const feedstock = await this.associateService.getFeedstockAssociations(
+        +feedstockId
+      );
+
+      return res.status(200).json(feedstock);
     } catch (error) {
       return next(error);
     }
