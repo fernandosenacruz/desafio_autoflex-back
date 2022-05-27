@@ -20,12 +20,12 @@ CREATE TABLE `Feedstock` (
 
 -- CreateTable
 CREATE TABLE `ProductsFeedstocks` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `productId` INTEGER NOT NULL,
     `feedstockId` INTEGER NOT NULL,
-    `assignedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `assignedBy` VARCHAR(191) NOT NULL,
+    `stock` INTEGER NOT NULL,
 
-    PRIMARY KEY (`productId`, `feedstockId`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey

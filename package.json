@@ -1,7 +1,10 @@
 {
   "name": "desafio_autoflex-back",
   "version": "1.0.0",
-  "description": "",
+  "description": "Desafio técnico para a Autoflex",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --transpile-only --watch src/ --ext ts,json --ignore src//*.spec.ts --exec ts-node src/index.ts",
@@ -21,10 +24,11 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/node": "^17.0.35",
     "nodemon": "^2.0.16",
     "prisma": "^3.14.0",
     "ts-node": "^10.8.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",
